@@ -1,32 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <Head/>
+    <div class="content">
+      <Nav/>
+      <router-view/>
     </div>
-    <router-view/>
+    <Player/>
+    
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import FindMusic from "./views/FindMusic";
+import Head from "@/components/Head";
+import Nav from "@/components/Nav";
+import Player from "@/components/Player";
+export default {
+  components:{
+    FindMusic,
+    Head,
+    Nav,
+    Player
   }
 }
+</script>
+
+<style scoped>
+  .content{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding-top: 60px;
+  
+  }
 </style>
