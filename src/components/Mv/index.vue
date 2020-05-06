@@ -28,7 +28,8 @@ export default {
   },
   methods: {
     play(id){
-      console.log(id)
+      // console.log(id)
+      this.$router.push('/mvdetail?id=' + id)
     }
   },
   created() {

@@ -6,6 +6,7 @@ import SongsRouter from './SongsRouter'
 import MvsRouter from './MvsRouter'
 import ResultRouter from './ResultRouter'
 import PlayListDetailRouter from './PlayListDetailRouter'
+import MvDetailRouter from './MvDetailRouter'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,7 @@ Vue.use(VueRouter)
     MvsRouter,
     ResultRouter,
     PlayListDetailRouter,
+    MvDetailRouter,
     {
       path:'/*',
       redirect:'/findMusic'

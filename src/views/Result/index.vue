@@ -59,7 +59,7 @@
                     <img :src="item.coverImgUrl" alt />
                     <div class="playcount">播放量:{{item.playCount}}</div>
                     <div class="play">
-                      <i class="iconfont icon-bofang2"></i>
+                      <i class="iconfont icon-bofang2" @click="toplaylist(item.id)"></i>
                     </div>
                   </div>
                   <div class="name">
@@ -131,11 +131,11 @@ export default {
   watch: {
     activeIndex() {
       this.getall();
-    }
+    },
   },
   methods: {
     playMv(id){
-      console.log(id)
+      this.$router.push('/mvdetail?id=' + id)
     },
     playmusic(id) {
       this.$axios({
@@ -148,6 +148,9 @@ export default {
         let songUrl = res.data.data[0].url;
         this.$store.state.player.url = songUrl;
       });
+    },
+    toplaylist(id){
+      this.$router.push("/playlistdetail?id=" + id);
     },
     handleCurrentChange(val) {
       this.page = val;

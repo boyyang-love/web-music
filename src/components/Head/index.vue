@@ -7,12 +7,12 @@
         <i class="el-icon-error"></i>
       </div>
       <div class="next">
-        <i class="el-icon-arrow-left"></i>
-        <i class="el-icon-arrow-right"></i>
+        <i class="el-icon-arrow-left" @click="$router.back(-1)"></i>
+        <i class="el-icon-arrow-right" @click="$router.go(1)"></i>
       </div>
       <div class="search">
         <div class="sicon">
-          <i class="el-icon-search"></i>
+          <i class="el-icon-search" @click="toResult"></i>
         </div>
         <input type="text" placeholder="搜索" @keyup.enter="toResult" v-model="inputValue" />
       </div>
@@ -35,7 +35,13 @@ export default {
       }else{
         this.$router.push('/result?q='+this.inputValue)
       }
-    }
+    },
+    // goBack(){
+    //   this.$router.back
+    // },
+    // goNext(){
+
+    // }
   }
 };
 </script>

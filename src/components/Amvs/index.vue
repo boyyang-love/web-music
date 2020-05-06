@@ -114,7 +114,7 @@ export default {
         this.getMv();
     },
     play(id){
-        console.log(id)
+        this.$router.push('/mvdetail?id=' + id)
     }
   },
   created() {

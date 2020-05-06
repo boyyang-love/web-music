@@ -56,6 +56,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="评论 " name="comment">
+            <!-- 热门评论 -->
             <div class="comment">
               <div class="title">
                 <h3>热门评论({{commentNum}})</h3>
@@ -80,6 +81,38 @@
                 </div>
               </div>
             </div>
+            <!-- 更多评论 -->
+            <div class="comment">
+              <div class="title">
+                <h3>更多评论({{newcommentNum}})</h3>
+                <div class="hot-comment">
+                  <ul>
+                    <li v-for="(item,i) in newcomment" :key="i">
+                      <div class="head-img">
+                        <img :src="item.user.avatarUrl" alt />
+                      </div>
+                      <div class="comments">
+                        <span style="color:#5192CB;font-size:14px">{{item.user.nickname}}:</span>
+                        {{item.content}}
+                        <div class="replied" v-if="item.beReplied.length!==0">
+                          <div
+                            style="color:#5192CB;font-size:14px"
+                          >{{item.beReplied[0].user.nickname}}:</div>
+                          <span>{{item.beReplied[0].content}}</span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="page">
+              <el-pagination background layout="prev, pager, next" 
+              @current-change="handleCurrenChange"
+              :page-size="20"
+              :current-page="page"
+              :total="newcommentNum"></el-pagination>
+            </div>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -102,7 +135,9 @@ export default {
       musiclist: [],
       limit: 10,
       comment: [],
-      commentNum: ""
+      commentNum: "",
+      newcomment: [],
+      newcommentNum: 0
     };
   },
   watch: {
@@ -132,6 +167,7 @@ export default {
     // console.log(this.$route.query.id);
     this.getTitle();
     this.getPlayList();
+    this.newComment();
   },
   methods: {
     getTitle() {
@@ -172,9 +208,25 @@ export default {
           type
         }
       }).then(res => {
-        // console.log(res.data.hotComments);
         this.comment = res.data.hotComments;
         this.commentNum = res.data.total;
+      });
+    },
+    newComment() {
+      // 最新评论 https://autumnfish.cn/comment/playlist
+      this.$axios({
+        url: "https://autumnfish.cn/comment/playlist",
+        method: "get",
+        params: {
+          limit: 20,
+          offset: (this.page - 1)*20,
+          id: this.$route.query.id
+        }
+      }).then(res => {
+        // console.log(res);
+        this.newcomment = res.data.comments;
+        this.newcommentNum = res.data.total;
+        this.total = res.data.total;
       });
     },
     play(id) {
@@ -188,6 +240,10 @@ export default {
         let songUrl = res.data.data[0].url;
         this.$store.state.player.url = songUrl;
       });
+    },
+    handleCurrenChange(val){
+      this.page = val;
+      this.newComment();
     }
   }
 };
@@ -286,5 +342,12 @@ td .img-wrap img {
   padding: 10px;
   border-radius: 5px;
   margin: 5px 0px;
+}
+/* 更多评论 */
+.page{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
