@@ -1,4 +1,6 @@
-# web-music
+# web-music(https://boyyang-love.github.io/web-music/#/findMusic)
+
+## 这是一个模仿网易云音乐的在线音乐播放，通过GitHub部署，可以通过以上地址访问到最终效果
 
 ## Project setup
 ```
